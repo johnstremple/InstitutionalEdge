@@ -1,0 +1,582 @@
+{
+  "metrics": {
+    "start_value": 100000.0,
+    "end_value": 1414672.58,
+    "total_return": 1314.67,
+    "cagr": 45.09,
+    "bench_total": 310.73,
+    "bench_cagr": 21.95,
+    "alpha": 23.14,
+    "alpha_capm": 17.17,
+    "beta": 1.342,
+    "sharpe": 1.07,
+    "sortino": 1.527,
+    "ann_vol": 37.93,
+    "bench_vol": 24.09,
+    "max_drawdown": -44.96,
+    "max_dd_days": 343,
+    "win_rate_vs_bench": 57.6,
+    "best_year": 189.54,
+    "worst_year": -34.15,
+    "n_years": 7.12,
+    "calmar": 1.003
+  },
+  "portfolio_values": "2019-01-02    1.000000e+05\n2019-01-03    9.518730e+04\n2019-01-04    9.904904e+04\n2019-01-07    1.007973e+05\n2019-01-08    1.012831e+05\n                  ...     \n2026-02-13    1.400723e+06\n2026-02-17    1.402878e+06\n2026-02-18    1.410780e+06\n2026-02-19    1.410037e+06\n2026-02-20    1.414673e+06\nLength: 1794, dtype: float64",
+  "benchmark_values": "Date\n2019-01-02    100000.000000\n2019-01-03     96732.970718\n2019-01-04    100871.658693\n2019-01-07    102072.576356\n2019-01-08    102995.880892\n                  ...      \n2026-02-13    406078.459268\n2026-02-17    405660.186625\n2026-02-18    408689.307386\n2026-02-19    407124.140874\n2026-02-20    410726.729158\nName: QQQ, Length: 1794, dtype: float64",
+  "trade_log": [
+    {
+      "date": "2019-01-02",
+      "holdings": [
+        "AAPL",
+        "AMD",
+        "AVGO",
+        "BBAI",
+        "GOOGL",
+        "IONQ",
+        "META",
+        "MRVL",
+        "MSFT",
+        "NVDA"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2019-01-03",
+      "holdings": [
+        "AAPL",
+        "AMD",
+        "AVGO",
+        "BBAI",
+        "GOOGL",
+        "IONQ",
+        "META",
+        "MRVL",
+        "MSFT",
+        "NVDA"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2019-01-04",
+      "holdings": [
+        "AAPL",
+        "AMD",
+        "AVGO",
+        "BBAI",
+        "GOOGL",
+        "IONQ",
+        "META",
+        "MRVL",
+        "MSFT",
+        "NVDA"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2019-01-07",
+      "holdings": [
+        "AAPL",
+        "AMD",
+        "AVGO",
+        "BBAI",
+        "GOOGL",
+        "IONQ",
+        "META",
+        "MRVL",
+        "MSFT",
+        "NVDA"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2020-01-02",
+      "holdings": [
+        "AMD",
+        "AAPL",
+        "NVDA",
+        "TSM",
+        "SMCI",
+        "MSFT",
+        "QCOM",
+        "MRVL",
+        "AVGO",
+        "META"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2020-01-03",
+      "holdings": [
+        "AMD",
+        "AAPL",
+        "NVDA",
+        "TSM",
+        "SMCI",
+        "MSFT",
+        "QCOM",
+        "MRVL",
+        "META",
+        "AVGO"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2020-01-06",
+      "holdings": [
+        "AMD",
+        "AAPL",
+        "NVDA",
+        "TSM",
+        "SMCI",
+        "MSFT",
+        "QCOM",
+        "META",
+        "GOOGL",
+        "AVGO"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2020-01-07",
+      "holdings": [
+        "AMD",
+        "AAPL",
+        "NVDA",
+        "TSM",
+        "QCOM",
+        "SMCI",
+        "MSFT",
+        "AVGO",
+        "GOOGL",
+        "META"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2021-01-04",
+      "holdings": [
+        "PLTR",
+        "TSM",
+        "QCOM",
+        "AMD",
+        "NVDA",
+        "AAPL",
+        "MRVL",
+        "AVGO",
+        "GOOGL",
+        "SMCI"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2021-01-05",
+      "holdings": [
+        "PLTR",
+        "TSM",
+        "QCOM",
+        "AMD",
+        "NVDA",
+        "AAPL",
+        "MRVL",
+        "AVGO",
+        "GOOGL",
+        "SMCI"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2021-01-06",
+      "holdings": [
+        "PLTR",
+        "TSM",
+        "QCOM",
+        "AMD",
+        "AAPL",
+        "MRVL",
+        "AVGO",
+        "NVDA",
+        "SMCI",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2021-01-07",
+      "holdings": [
+        "PLTR",
+        "TSM",
+        "QCOM",
+        "AMD",
+        "MRVL",
+        "NVDA",
+        "AAPL",
+        "AVGO",
+        "SMCI",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2022-01-03",
+      "holdings": [
+        "IONQ",
+        "NVDA",
+        "MRVL",
+        "AMD",
+        "AVGO",
+        "QCOM",
+        "SMCI",
+        "AAPL",
+        "MSFT",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2022-01-04",
+      "holdings": [
+        "IONQ",
+        "NVDA",
+        "MRVL",
+        "AMD",
+        "AVGO",
+        "QCOM",
+        "SMCI",
+        "AAPL",
+        "MSFT",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2022-01-05",
+      "holdings": [
+        "IONQ",
+        "NVDA",
+        "MRVL",
+        "AMD",
+        "QCOM",
+        "AVGO",
+        "SMCI",
+        "AAPL",
+        "MSFT",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2022-01-06",
+      "holdings": [
+        "IONQ",
+        "NVDA",
+        "MRVL",
+        "AMD",
+        "QCOM",
+        "AVGO",
+        "SMCI",
+        "AAPL",
+        "MSFT",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2022-01-07",
+      "holdings": [
+        "IONQ",
+        "NVDA",
+        "MRVL",
+        "AMD",
+        "QCOM",
+        "AVGO",
+        "SMCI",
+        "AAPL",
+        "MSFT",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2023-01-03",
+      "holdings": [
+        "SMCI",
+        "AVGO",
+        "TSM",
+        "NVDA",
+        "MSFT",
+        "AAPL",
+        "QCOM",
+        "AMD",
+        "GOOGL",
+        "MRVL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2023-01-04",
+      "holdings": [
+        "SMCI",
+        "AVGO",
+        "NVDA",
+        "TSM",
+        "MSFT",
+        "AAPL",
+        "QCOM",
+        "AMD",
+        "GOOGL",
+        "META"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2023-01-05",
+      "holdings": [
+        "SMCI",
+        "AVGO",
+        "NVDA",
+        "TSM",
+        "MSFT",
+        "AAPL",
+        "QCOM",
+        "AMD",
+        "GOOGL",
+        "META"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2023-01-06",
+      "holdings": [
+        "SMCI",
+        "AVGO",
+        "NVDA",
+        "TSM",
+        "AAPL",
+        "MSFT",
+        "AMD",
+        "QCOM",
+        "GOOGL",
+        "META"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2024-01-02",
+      "holdings": [
+        "SMCI",
+        "NVDA",
+        "BBAI",
+        "META",
+        "AMD",
+        "IONQ",
+        "AVGO",
+        "PLTR",
+        "QCOM",
+        "MSFT"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2024-01-03",
+      "holdings": [
+        "NVDA",
+        "SMCI",
+        "META",
+        "BBAI",
+        "IONQ",
+        "AMD",
+        "AVGO",
+        "PLTR",
+        "QCOM",
+        "MSFT"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2024-01-04",
+      "holdings": [
+        "SMCI",
+        "NVDA",
+        "META",
+        "BBAI",
+        "IONQ",
+        "AMD",
+        "AVGO",
+        "PLTR",
+        "MSFT",
+        "QCOM"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2024-01-05",
+      "holdings": [
+        "NVDA",
+        "SMCI",
+        "META",
+        "AMD",
+        "BBAI",
+        "IONQ",
+        "AVGO",
+        "PLTR",
+        "MSFT",
+        "QCOM"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2025-01-02",
+      "holdings": [
+        "SOUN",
+        "IONQ",
+        "PLTR",
+        "BBAI",
+        "MRVL",
+        "NVDA",
+        "AVGO",
+        "TSM",
+        "META",
+        "AAPL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2025-01-03",
+      "holdings": [
+        "SOUN",
+        "IONQ",
+        "PLTR",
+        "BBAI",
+        "MRVL",
+        "NVDA",
+        "AVGO",
+        "TSM",
+        "META",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2025-01-06",
+      "holdings": [
+        "SOUN",
+        "IONQ",
+        "PLTR",
+        "BBAI",
+        "MRVL",
+        "NVDA",
+        "AVGO",
+        "TSM",
+        "META",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2025-01-07",
+      "holdings": [
+        "IONQ",
+        "SOUN",
+        "PLTR",
+        "BBAI",
+        "MRVL",
+        "AVGO",
+        "NVDA",
+        "TSM",
+        "META",
+        "GOOGL"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2026-01-02",
+      "holdings": [
+        "AMD",
+        "GOOGL",
+        "PLTR",
+        "TSM",
+        "AVGO",
+        "NVDA",
+        "AAPL",
+        "QCOM",
+        "MRVL",
+        "MSFT"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2026-01-05",
+      "holdings": [
+        "GOOGL",
+        "AMD",
+        "PLTR",
+        "TSM",
+        "AVGO",
+        "NVDA",
+        "AAPL",
+        "QCOM",
+        "MRVL",
+        "MSFT"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2026-01-06",
+      "holdings": [
+        "GOOGL",
+        "PLTR",
+        "AMD",
+        "TSM",
+        "AVGO",
+        "QCOM",
+        "NVDA",
+        "AAPL",
+        "MRVL",
+        "BBAI"
+      ],
+      "n": 10
+    },
+    {
+      "date": "2026-01-07",
+      "holdings": [
+        "GOOGL",
+        "PLTR",
+        "TSM",
+        "AMD",
+        "AVGO",
+        "QCOM",
+        "NVDA",
+        "AAPL",
+        "MSFT",
+        "BBAI"
+      ],
+      "n": 10
+    }
+  ],
+  "parameters": {
+    "tickers": [
+      "NVDA",
+      "AMD",
+      "MSFT",
+      "GOOGL",
+      "META",
+      "PLTR",
+      "SMCI",
+      "AVGO",
+      "ARM",
+      "QCOM",
+      "IONQ",
+      "SOUN",
+      "BBAI",
+      "AAPL",
+      "TSM",
+      "MRVL"
+    ],
+    "start_date": "2019-01-01",
+    "end_date": "2026-02-21",
+    "rebalance": "annual",
+    "weighting": "equal",
+    "top_n": 10,
+    "benchmark": "QQQ"
+  }
+}

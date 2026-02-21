@@ -1,0 +1,333 @@
+{
+  "ticker": "SMCI",
+  "company_name": "Super Micro Computer, Inc.",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "market_cap": 19263500288,
+  "fundamental": {
+    "score": 74.67,
+    "valuation": {
+      "pe_ratio": 21.729729,
+      "forward_pe": 10.861416,
+      "pb_ratio": 2.75484,
+      "ps_ratio": 0.6865819,
+      "ev_ebitda": 18.621,
+      "ev_revenue": 0.728,
+      "p_fcf": 12.571542499885794,
+      "fcf_yield": 0.07954473367202827,
+      "peg_ratio": null,
+      "dividend_yield": null
+    },
+    "growth": {
+      "revenue_growth_yoy": 1.234,
+      "earnings_growth_yoy": 0.192,
+      "eps_growth": 0.249,
+      "revenue_cagr_3y": 0.6170781210288652
+    },
+    "health": {
+      "current_ratio": 1.697,
+      "quick_ratio": 0.981,
+      "debt_equity": 0.7528,
+      "interest_coverage": 21.343377033219745,
+      "debt_assets_ratio": 0.34089711479082285,
+      "total_cash": 4106275072,
+      "total_debt": 5263713792,
+      "net_cash": -1157438720
+    },
+    "profitability": {
+      "gross_margin": 0.0802,
+      "operating_margin": 0.0374,
+      "net_margin": 0.03111,
+      "roe": 0.13193,
+      "roa": 0.03418,
+      "roic": 0.09465734280880841
+    },
+    "quality_score": {
+      "f_score": 6,
+      "f_score_max": 9,
+      "interpretation": "Strong",
+      "signals": [
+        "Conservative debt/equity (<1.0)",
+        "Strong liquidity (current ratio >1.5)",
+        "High interest coverage (>5x)",
+        "Revenue growth >10% YoY",
+        "Earnings growth >10% YoY",
+        "Reasonable P/E (5-25)"
+      ]
+    },
+    "highlights": {
+      "P/E Ratio": "21.7x",
+      "P/B Ratio": "2.8x",
+      "EV/EBITDA": "18.6x",
+      "Revenue Growth YoY": "123.4%",
+      "Earnings Growth YoY": "19.2%",
+      "ROE": "13.2%",
+      "Net Margin": "3.1%",
+      "Debt/Equity": "0.75",
+      "Current Ratio": "1.70"
+    }
+  },
+  "technical": {
+    "score": 46.0,
+    "signals": {
+      "Trend (50/200 MA)": "\ud83d\udd34 Downtrend (SMA50 < SMA200)",
+      "Price vs SMA20": "\ud83d\udfe2 Above SMA20 (short-term bullish)",
+      "MACD": "\ud83d\udd34 Bearish (below signal)",
+      "RSI": "\ud83d\udfe1 NEUTRAL (52.7)",
+      "Bollinger Bands": "\ud83d\udfe1 Mid-band (63% of band width)",
+      "ADX (Trend Strength)": "\u26aa WEAK/NO TREND (13.4)",
+      "Volume": "\u26aa Normal volume (1.2x average)"
+    },
+    "current_price": 32.15999984741211,
+    "sma_20": 31.340500164031983,
+    "sma_50": 31.163200187683106,
+    "sma_200": 41.671950044631956,
+    "rsi": 52.72247613561285,
+    "macd": -0.07396463258090336,
+    "macd_signal": -0.02410177183696134,
+    "atr": 1.9416397135077792,
+    "bb_upper": 34.400995358916475,
+    "bb_lower": 28.28000496914749,
+    "adx": 13.355721601715254,
+    "volume_trend": "Neutral",
+    "support": 27.75,
+    "resistance": 58.5099983215332
+  },
+  "sentiment": {
+    "score": 75.74,
+    "overall": "Very Positive \u2014 9/10 headlines bullish",
+    "headline_count": 10,
+    "bullish_headlines": 9,
+    "bearish_headlines": 0,
+    "neutral_headlines": 1,
+    "avg_compound": 0.5149,
+    "headlines": [
+      "Insider Buying At Super Micro Computer Versus Margin Pressure And Valuation - Yahoo Finance",
+      "Super Micro Computer: Margins May Expand This Year (Rating Upgrade) - Seeking Alpha",
+      "Stock Market Today, Feb. 19: Super Micro Computer Surges After $40B Revenue Outlook Reignites AI Momentum - The Motley Fool",
+      "SMCI Declines 6% in a Month: Time to Hold or Fold the Stock? - TradingView",
+      "Nvidia Partner Super Micro's Momentum Drops As Investors Shrug Off Earnings Surprise\u2014 Shares Approach 52-Week Low - Benzinga"
+    ],
+    "scored_headlines": [
+      {
+        "title": "Insider Buying At Super Micro Computer Versus Margin Pressure And Valuation - Yahoo Finance",
+        "source": "Yahoo Finance",
+        "sentiment_score": 0.4019,
+        "label": "Bullish"
+      },
+      {
+        "title": "Super Micro Computer: Margins May Expand This Year (Rating Upgrade) - Seeking Alpha",
+        "source": "Seeking Alpha",
+        "sentiment_score": 0.7351,
+        "label": "Bullish"
+      },
+      {
+        "title": "Stock Market Today, Feb. 19: Super Micro Computer Surges After $40B Revenue Outlook Reignites AI Momentum - The Motley Fool",
+        "source": "The Motley Fool",
+        "sentiment_score": 0.25,
+        "label": "Bullish"
+      },
+      {
+        "title": "SMCI Declines 6% in a Month: Time to Hold or Fold the Stock? - TradingView",
+        "source": "TradingView",
+        "sentiment_score": 0.0,
+        "label": "Neutral"
+      },
+      {
+        "title": "Nvidia Partner Super Micro's Momentum Drops As Investors Shrug Off Earnings Surprise\u2014 Shares Approach 52-Week Low - Benzinga",
+        "source": "Benzinga",
+        "sentiment_score": 0.6124,
+        "label": "Bullish"
+      },
+      {
+        "title": "Stock Market Today, Feb. 19: Super Micro Computer Surges After $40B Revenue Outlook Reignites AI Momentum - Yahoo Finance",
+        "source": "Yahoo Finance",
+        "sentiment_score": 0.5994,
+        "label": "Bullish"
+      },
+      {
+        "title": "Where Will Super Micro Computer Stock Be in 5 Years? - The Motley Fool",
+        "source": "The Motley Fool",
+        "sentiment_score": 0.25,
+        "label": "Bullish"
+      },
+      {
+        "title": "DELL vs. SMCI: Which AI-Server Stock Offers Better Growth Opportunity? - Zacks Investment Research",
+        "source": "Zacks Investment Research",
+        "sentiment_score": 0.8074,
+        "label": "Bullish"
+      },
+      {
+        "title": "Super Micro Computer Inc. stock outperforms competitors on strong trading day - MarketWatch",
+        "source": "MarketWatch",
+        "sentiment_score": 0.802,
+        "label": "Bullish"
+      },
+      {
+        "title": "Toll Brothers Upgraded, Super Micro Computer Downgraded: Updated Rankings on Top Blue-Chip Stocks - InvestorPlace",
+        "source": "InvestorPlace",
+        "sentiment_score": 0.6908,
+        "label": "Bullish"
+      }
+    ]
+  },
+  "simulations": {
+    "monte_carlo": {
+      "current_price": 32.16,
+      "median_price_1y": 50.51,
+      "bear_case": -0.4417,
+      "bull_case": 3.4416,
+      "median_return_1y": 0.5705,
+      "p25_price": 29.59,
+      "p75_price": 86.85,
+      "probability_profit": 0.7192,
+      "prob_up_20pct": 0.6375,
+      "prob_down_20pct": 0.2025,
+      "annualized_return": 1.2102,
+      "annualized_vol": 0.8187,
+      "n_simulations": 10000
+    },
+    "dcf": {
+      "current_price": 32.16,
+      "intrinsic_value": 19.38,
+      "upside_downside": -0.3975,
+      "wacc": 0.0876,
+      "growth_rate_used": 0.35,
+      "terminal_growth_rate": 0.03,
+      "margin_of_safety_20": 15.5,
+      "margin_of_safety_30": 13.56,
+      "valuation_status": "Significantly Overvalued"
+    },
+    "scenarios": {
+      "bull": {
+        "probability": 0.25,
+        "annual_return": 1.6130477048903487,
+        "description": "Outperforms historical average by 1 std dev",
+        "price_1y": 84.04,
+        "price_3y": 573.8,
+        "price_5y": 3917.89,
+        "return_pct_1y": 161.3
+      },
+      "base": {
+        "probability": 0.5,
+        "annual_return": 0.7943243878774083,
+        "description": "Performs in line with historical average",
+        "price_1y": 57.71,
+        "price_3y": 185.79,
+        "price_5y": 598.16,
+        "return_pct_1y": 79.43
+      },
+      "bear": {
+        "probability": 0.25,
+        "annual_return": -0.024398929135531988,
+        "description": "Underperforms historical average by 1 std dev",
+        "price_1y": 31.38,
+        "price_3y": 29.86,
+        "price_5y": 28.42,
+        "return_pct_1y": -2.44
+      },
+      "expected_value_1y": 57.71,
+      "expected_return_1y": 79.45
+    },
+    "stress_test": {
+      "current_price": 32.16,
+      "beta_used": 1.52,
+      "scenarios": {
+        "2008 Financial Crisis": {
+          "estimated_drawdown_pct": -95.0,
+          "estimated_price": 1.61,
+          "dollar_loss_per_share": 30.55
+        },
+        "2020 COVID Crash": {
+          "estimated_drawdown_pct": -56.96,
+          "estimated_price": 13.84,
+          "dollar_loss_per_share": 18.32
+        },
+        "2022 Rate Hike Bear": {
+          "estimated_drawdown_pct": -37.31,
+          "estimated_price": 20.16,
+          "dollar_loss_per_share": 12.0
+        },
+        "2000 Dot-com Bust": {
+          "estimated_drawdown_pct": -95.0,
+          "estimated_price": 1.61,
+          "dollar_loss_per_share": 30.55
+        },
+        "Flash Crash (-20%)": {
+          "estimated_drawdown_pct": -30.46,
+          "estimated_price": 22.36,
+          "dollar_loss_per_share": 9.8
+        }
+      },
+      "note": "Estimated. Individual stock behavior varies from market averages."
+    },
+    "cagr_projection": {
+      "7%_CAGR": {
+        "1yr": 34.41,
+        "3yr": 39.4,
+        "5yr": 45.11,
+        "10yr": 63.26,
+        "20yr": 124.45
+      },
+      "10%_CAGR": {
+        "1yr": 35.38,
+        "3yr": 42.8,
+        "5yr": 51.79,
+        "10yr": 83.41,
+        "20yr": 216.36
+      },
+      "12%_CAGR": {
+        "1yr": 36.02,
+        "3yr": 45.18,
+        "5yr": 56.68,
+        "10yr": 99.88,
+        "20yr": 310.22
+      },
+      "15%_CAGR": {
+        "1yr": 36.98,
+        "3yr": 48.91,
+        "5yr": 64.69,
+        "10yr": 130.11,
+        "20yr": 526.35
+      },
+      "20%_CAGR": {
+        "1yr": 38.59,
+        "3yr": 55.57,
+        "5yr": 80.02,
+        "10yr": 199.13,
+        "20yr": 1232.94
+      },
+      "25%_CAGR": {
+        "1yr": 40.2,
+        "3yr": 62.81,
+        "5yr": 98.14,
+        "10yr": 299.51,
+        "20yr": 2789.44
+      },
+      "historical_cagr_pct": {
+        "1yr": -46.62,
+        "3yr": 51.29
+      },
+      "current_price": 32.16
+    }
+  },
+  "risk": {
+    "score": 44.0,
+    "annual_return": 1.2102,
+    "annual_vol": 0.8187,
+    "sharpe_ratio": 1.429,
+    "sortino_ratio": 2.17,
+    "calmar_ratio": 1.426,
+    "max_drawdown": -0.8484,
+    "var_95": -0.0678,
+    "var_99": -0.1207,
+    "cvar_95": -0.1076,
+    "beta": 1.844,
+    "alpha": 0.5307,
+    "ulcer_index": 12.6431,
+    "rolling_vol_1m": 0.8421,
+    "rolling_vol_3m": 0.6437
+  },
+  "composite_score": 63.22,
+  "buy_signal": "BUY"
+}
