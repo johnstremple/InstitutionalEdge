@@ -1,200 +1,163 @@
-# 🏦 InstitutionalEdge
+# InstitutionalEdge v5.0
+### Institutional-Grade AI Financial Advisor — Built in Python, 100% Free Data
 
-**An institutional-grade, open-source investment analysis system for long-term wealth building.**
-
-Built for retail investors who want access to the same analytical frameworks used by professional asset managers — completely free, no paid data sources required.
+> A full-stack quantitative investment platform combining the analytical tools used by hedge funds and institutional investors — stock screening, fraud detection, factor models, backtesting, and AI-powered portfolio construction — using only free, publicly available data sources.
 
 ---
 
 ## What It Does
 
-InstitutionalEdge runs a full suite of quantitative models on any US stock or cryptocurrency to answer two questions:
+Most retail investors have access to basic charts and P/E ratios. InstitutionalEdge gives you the same analytical framework used by professional portfolio managers:
 
-1. **Is this a good company to own long-term?**
-2. **Is now a good time to buy?**
-
-It then gives you a composite score (0–100) and a clear signal: `STRONG BUY / BUY / HOLD / WEAK / AVOID`.
+- **Finds stocks for you** — screens the entire S&P 500 + NASDAQ-100 automatically
+- **Builds your portfolio** — survey-based AI advisor matches investments to your goals
+- **Detects accounting fraud** — Beneish M-Score flags earnings manipulation before it becomes a headline
+- **Quantifies alpha** — Fama-French 5-Factor model separates skill from luck
+- **Proves the strategy** — backtesting engine with CAGR, Sharpe, alpha, max drawdown
+- **Generates research reports** — professional PDF output that looks like sell-side equity research
 
 ---
 
-## Analysis Modules
+## Features
 
-### 1. Fundamental Analysis
-- P/E, P/B, EV/EBITDA, P/FCF, PEG ratios
-- Revenue, earnings, and FCF growth (YoY + CAGR)
-- ROE, ROIC, ROA, gross/net/operating margins
-- Debt/Equity, Current Ratio, Interest Coverage
-- Piotroski F-Score (9-point quality assessment)
-- Moat indicators
+### Stock Discovery Engine
+Automatically screens 500+ stocks across 7 strategies — no ticker input required.
 
-### 2. Technical Analysis
-- Trend: SMA/EMA (20/50/200), ADX
-- Momentum: RSI, Stochastic, Williams %R
-- MACD with crossover detection
-- Bollinger Bands (squeeze / expansion)
-- ATR (volatility measurement)
-- OBV (On-Balance Volume — accumulation/distribution)
-- Golden Cross / Death Cross detection
-- Support & Resistance levels
+| Profile | Strategy |
+|---------|----------|
+| `aggressive_growth` | High revenue growth, expanding margins |
+| `garp` | Growth at a Reasonable Price (PEG-based) |
+| `deep_value` | Low P/E, P/B — trading below intrinsic value |
+| `quality_compounder` | High ROE, wide moat, durable competitive advantage |
+| `dividend_growth` | Dividend yield + growth potential |
+| `momentum` | 12-1 month price momentum factor |
+| `small_cap_growth` | Under-followed small caps with high growth |
 
-### 3. News Sentiment Analysis
-- Pulls headlines from yfinance + Google News RSS (no API key)
-- VADER NLP sentiment scoring on each headline
-- Bullish/bearish/neutral headline counts
-- Overall market narrative summary
+### AI Financial Advisor
+Survey-based portfolio builder — 15 questions about your risk tolerance, goals, time horizon, and capital — then auto-screens and builds a personalized portfolio with exact dollar amounts, 30-year projections, and tax optimization notes.
 
-### 4. Institutional Simulations
-- **Monte Carlo** (10,000 GBM paths) — 1-year price distribution, bull/bear/median scenarios, probability of profit
-- **Discounted Cash Flow (DCF)** — 2-stage growth model with WACC, intrinsic value, margin of safety entry points
-- **Scenario Analysis** — Bull / Base / Bear with probability weights and 1/3/5-year price targets
-- **Historical Stress Tests** — Estimate drawdowns under 2008 crash, COVID, 2022 bear market, dot-com bust
-- **CAGR Projections** — Multi-rate wealth projection table (7% to 25%)
+### 11-Module Stock Analysis Engine
 
-### 5. Portfolio Optimization
-- **Maximum Sharpe Ratio** portfolio (Modern Portfolio Theory)
-- **Minimum Volatility** portfolio
-- **Risk Parity** allocation
-- **Efficient Frontier** generation (30-point curve)
-- Individual asset stats: return, vol, Sharpe
-- Correlation matrix + diversification analysis
+| Module | What It Measures |
+|--------|-----------------|
+| Fundamental Analysis | P/E, P/B, EV/EBITDA, margins, growth, Piotroski F-Score |
+| Technical Analysis | 15+ indicators — RSI, MACD, Bollinger Bands, moving averages |
+| Competitive Analysis | Economic moat, peer comparison, competitive positioning |
+| Monte Carlo Simulation | 10,000 price paths, bull/bear/base scenarios |
+| DCF Valuation | Discounted cash flow with margin of safety |
+| Insider Tracking | SEC Form 4 filings, cluster buying detection |
+| Short Interest | Float %, days to cover, squeeze probability score |
+| Options Signals | Put/call ratio, IV rank, max pain, unusual activity |
+| Macro Regime | Economic cycle detection, sector rotation signals |
+| Fraud Detection | Beneish M-Score + Altman Z-Score + earnings quality |
+| Fama-French Factor Model | Alpha, factor betas, R-squared, style classification |
 
-### 6. Risk Management
-- Value at Risk (VaR): Historical simulation at 95% and 99%
-- Conditional VaR / Expected Shortfall (CVaR)
-- Sharpe, Sortino, and Calmar ratios
-- Max Drawdown + drawdown duration
-- Rolling volatility (1-month, 3-month)
-- Beta and Alpha vs SPY
-- Ulcer Index
+### Fraud Detection
+The same models that flagged Enron and WorldCom before their collapses.
 
-### 7. Crypto Analysis
-- Market data via CoinGecko (free, no API key)
-- Full technical analysis on price history
-- Developer activity (GitHub commits, stars, forks)
-- Community metrics (Twitter, Reddit)
-- Market dominance, supply inflation, ATH analysis
-- Monte Carlo simulation
+- **Beneish M-Score** — 8-variable model detecting earnings manipulation. Score > -1.78 = likely manipulator
+- **Altman Z-Score** — Bankruptcy prediction. Score < 1.81 = financial distress zone
+- **Earnings Quality Score** — Cash flow vs reported earnings, accruals analysis
+
+### Fama-French 5-Factor Model
+Downloads factor data free from Kenneth French's Dartmouth library and runs OLS regression to decompose returns into MKT, SMB, HML, RMW, CMA, and MOM factors. Output: annualized alpha, factor betas, R-squared, style classification.
+
+### Backtesting Engine
+Walk-forward backtest with annual/quarterly rebalancing. Outputs CAGR vs benchmark, alpha (simple + CAPM), Sharpe/Sortino/Calmar ratios, maximum drawdown, and monthly win rate vs S&P 500.
+
+### Natural Language Screener
+```bash
+python main.py ask "cheap AI stocks with insider buying"
+python main.py ask "profitable dividend stocks no debt"
+python main.py ask "small cap biotech high growth under PE 20"
+```
 
 ---
 
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/InstitutionalEdge.git
+git clone https://github.com/johnstremple/InstitutionalEdge.git
 cd InstitutionalEdge
-pip install -r requirements.txt
+pip install yfinance pandas numpy scipy requests feedparser vaderSentiment matplotlib streamlit reportlab pytrends
 ```
-
-**Requirements:** Python 3.9+
 
 ---
 
 ## Usage
 
-### Analyze a Single Stock
 ```bash
-python main.py analyze AAPL
-python main.py analyze NVDA
-python main.py analyze MSFT
-```
+# Full stock analysis with PDF report
+python main.py analyze NVDA --pdf
 
-### Optimize a Portfolio
-```bash
-python main.py portfolio AAPL MSFT NVDA AMZN GOOGL META
-```
+# AI advisor — survey builds your personal portfolio
+python main.py advisor
 
-### Rank a Watchlist
-```bash
-python main.py watchlist AAPL NVDA MSFT TSLA META AMZN GOOGL
-```
+# Find stocks automatically
+python main.py screen --profile garp
+python main.py screen --profile aggressive_growth
 
-### Analyze Crypto
-```bash
-python main.py crypto bitcoin
-python main.py crypto ethereum
-python main.py crypto solana
-```
+# Natural language screener
+python main.py ask "profitable tech stocks with low debt"
 
----
+# Backtest strategies vs S&P 500
+python main.py backtest --mode compare
+python main.py backtest --mode custom --tickers NVDA AMD MSFT AAPL
 
-## Example Output (Analyze)
+# Options flow scanner
+python main.py options-scan
 
-```
-======================================================
-  INSTITUTIONAL EDGE ANALYSIS: AAPL
-  2025-02-19 14:30:00
-======================================================
-
-  --- SCORES (0-100) ---
-  Fundamental:  74.5/100
-  Technical:    68.2/100
-  Sentiment:    72.1/100
-  Risk-Adj:     81.3/100
-  COMPOSITE:    73.8/100
-
-  --- SIMULATIONS (1-Year Outlook) ---
-  Monte Carlo Median Return:  +14.2%
-  Bull Case (90th pct):       +42.1%
-  Bear Case (10th pct):       -18.3%
-  DCF Intrinsic Value:        $218.40
-  Current Price:              $195.20
-  DCF Upside/Downside:        +11.9% (Undervalued)
-
-  ═══════════════════════════════
-  SIGNAL: 🟢 BUY
-  ═══════════════════════════════
-```
-
----
-
-## Composite Scoring Methodology
-
-| Component | Weight | What It Measures |
-|---|---|---|
-| Fundamental | 40% | Business quality, valuation, growth |
-| Technical | 30% | Price trend, momentum, timing |
-| Sentiment | 20% | News flow, market narrative |
-| Risk-Adjusted | 10% | Sharpe, drawdown, volatility |
-
-**Signal Thresholds:**
-- `STRONG BUY`: Score ≥ 72 + MC median return > 10%
-- `BUY`: Score ≥ 60 + MC median return > 5%
-- `HOLD`: Score 45–60
-- `WEAK`: Score 35–45
-- `AVOID`: Score < 35
-
----
-
-## Data Sources (All Free)
-
-| Source | Data |
-|---|---|
-| yfinance | Stock prices, financials, company info |
-| Google News RSS | News headlines |
-| CoinGecko API | Crypto market data |
-| VADER Sentiment | NLP sentiment scoring |
-
----
-
-## Programmatic Usage
-
-```python
-from main import analyze_stock, analyze_portfolio, generate_watchlist
-
-# Single stock
-results = analyze_stock("NVDA")
-print(results["buy_signal"])          # "STRONG BUY"
-print(results["composite_score"])     # 81.3
-print(results["simulations"]["dcf"]["intrinsic_value"])
-
-# Portfolio optimization
-portfolio = analyze_portfolio(["AAPL", "MSFT", "NVDA", "AMZN", "GOOGL"])
-print(portfolio["optimal_weights"])   # {"AAPL": 0.18, "MSFT": 0.24, ...}
+# Portfolio risk attribution
+python main.py risk-attribution AAPL:30 MSFT:25 NVDA:45
 
 # Watchlist ranking
-ranked = generate_watchlist(["AAPL", "NVDA", "TSLA", "META", "AMZN"])
-# Returns sorted by composite score
+python main.py watchlist NVDA SMCI AMD AAPL MSFT META TSLA PLTR
+
+# Macro regime + sector rotation
+python main.py macro
+
+# Web dashboard
+streamlit run dashboard.py
 ```
+
+---
+
+## Sample Output
+
+```
+NVDA — NVIDIA Corporation | $4,621B Mkt Cap | Price: $189.82
+
+12M TARGET:  $226.50  19.3% upside
+
+SCORES:
+Fund 79 | Comp 75 | Tech 62 | Sent 53 | Insider 56
+Fraud 45 | Factor 91 | Alt 80 | Options 76
+COMPOSITE: 76.6/100
+
+ACCOUNTING QUALITY
+Beneish M-Score:  -1.02  (high growth false positive)
+Altman Z-Score:   91.10  SAFE ZONE
+Earnings Quality: 75/100 HIGH QUALITY
+
+FACTOR MODEL: Quality Growth | Alpha +8.2%/yr | R-squared 0.71
+
+SIGNAL: STRONG BUY
+```
+
+---
+
+## Data Sources (all free)
+
+| Source | Data |
+|--------|------|
+| yfinance | Prices, financials, options chains |
+| SEC EDGAR API | Form 4 insider filings, 13F holdings |
+| Kenneth French Data Library | Fama-French 5-Factor + Momentum |
+| Reddit JSON API | WallStreetBets sentiment |
+| Wikipedia | S&P 500 and NASDAQ-100 lists |
+| Google Trends (pytrends) | Retail search interest |
+
+**Total data cost: $0/month**
 
 ---
 
@@ -202,38 +165,39 @@ ranked = generate_watchlist(["AAPL", "NVDA", "TSLA", "META", "AMZN"])
 
 ```
 InstitutionalEdge/
-├── main.py                  # CLI entry point
-├── data_fetcher.py          # Unified data retrieval
-├── fundamental_analysis.py  # Valuation, growth, health, quality
-├── technical_analysis.py    # 15+ indicators, signal generation
-├── sentiment_analysis.py    # NLP news sentiment
-├── simulations.py           # Monte Carlo, DCF, scenarios, stress tests
-├── portfolio_optimizer.py   # MPT, efficient frontier, risk parity
-├── risk_manager.py          # VaR, CVaR, Sharpe, beta, drawdown
-├── crypto_analyzer.py       # Crypto-specific analysis
-├── report_generator.py      # Text + JSON report export
-└── requirements.txt
+├── main.py                  # CLI — all commands
+├── data_fetcher.py          # Market data
+├── fundamental_analysis.py  # Ratios, Piotroski F-Score
+├── technical_analysis.py    # 15+ technical indicators
+├── competitive_analysis.py  # Moat scoring, peer comparison
+├── simulations.py           # Monte Carlo, DCF
+├── risk_manager.py          # Sharpe, VaR, drawdown
+├── sentiment_analysis.py    # News sentiment (VADER)
+├── insider_tracker.py       # SEC Form 4, 13F
+├── short_interest.py        # Squeeze probability model
+├── options_signals.py       # P/C ratio, IV rank, max pain
+├── macro_regime.py          # Economic cycle, sector rotation
+├── price_target.py          # 5-model blended price target
+├── fraud_detection.py       # Beneish M-Score, Altman Z-Score
+├── factor_model.py          # Fama-French 5-Factor regression
+├── alt_data.py              # Reddit sentiment, earnings calendar
+├── advanced_tools.py        # Options scanner, risk attribution, NL screener
+├── stock_screener.py        # Universe screener
+├── advisor.py               # Survey-based portfolio builder
+├── backtester.py            # Walk-forward backtesting
+├── portfolio_optimizer.py   # Mean-variance optimization (MPT)
+├── crypto_analyzer.py       # Cryptocurrency analysis
+├── pdf_report.py            # Institutional PDF report generator
+├── dashboard.py             # Streamlit web dashboard
+└── report_generator.py      # Text report output
 ```
 
 ---
 
 ## Disclaimer
 
-**InstitutionalEdge is for educational purposes only. It is not financial advice.**
-Past performance does not guarantee future results. Always conduct your own due diligence before making investment decisions. The models used are simplified representations of complex financial systems.
+For educational and research purposes only. Not investment advice. Always consult a licensed financial advisor before making investment decisions.
 
 ---
 
-## Contributing
-
-Pull requests welcome. Priority improvements:
-- [ ] SEC EDGAR filing integration (10-K/10-Q parsing)
-- [ ] Insider trading signal detection
-- [ ] Options market implied volatility integration
-- [ ] Sector rotation model
-- [ ] Earnings date awareness and pre-earnings analysis
-- [ ] Streamlit web dashboard
-
----
-
-*Built with Python, yfinance, scipy, numpy, VADER NLP, and CoinGecko.*
+*Built by John Stremple | George Mason University — Finance & Computer Science*
