@@ -456,12 +456,16 @@ class InvestorAdvisor:
             # Pick top N
             n_stocks   = min(8, max(3, len(candidates)))
             candidates = candidates[:n_stocks]
-            stock_alloc = stock_capital * stock_pick_pct / max(n_stocks, 1)
+            total_stock_dollars = stock_capital * stock_pick_pct
+
+            # Tapered weights that sum exactly to 1.0
+            raw_tapers = [1 - (i * 0.08) for i in range(n_stocks)]
+            raw_tapers = [max(t, 0.5) for t in raw_tapers]
+            taper_sum  = sum(raw_tapers)
+            norm_tapers = [t / taper_sum for t in raw_tapers]
 
             for i, stock in enumerate(candidates):
-                # Position size tapers (biggest position first)
-                taper  = 1 - (i * 0.08)
-                dollar = stock_alloc * max(taper, 0.5)
+                dollar = total_stock_dollars * norm_tapers[i]
                 weight = dollar / capital
 
                 holdings.append({
