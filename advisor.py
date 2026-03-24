@@ -28,6 +28,7 @@ from typing import Optional
 class InvestorProfile:
     # Identity
     name:              str   = "Investor"
+    age:               int   = 30
     
     # Risk
     risk_tolerance:    int   = 5      # 1-10 (1=very conservative, 10=very aggressive)
@@ -35,32 +36,51 @@ class InvestorProfile:
     
     # Time
     time_horizon_yrs:  int   = 10     # Years until you need the money
+    retirement_age:    int   = 65     # Target retirement age
     
     # Goals
     primary_goal:      str   = "growth"  # growth | income | preservation | speculation | balanced
+    specific_goals:    list  = field(default_factory=list)  # ["retirement","house","education","wealth"]
     
     # Financial situation
     starting_capital:  float = 10000.0
     monthly_contrib:   float = 500.0
-    emergency_fund:    bool  = True    # Do they have 3-6 months expenses saved?
-    has_debt:          bool  = False   # High-interest debt?
+    annual_income:     float = 75000.0
+    net_worth:         float = 50000.0    # Excluding primary residence
+    emergency_fund:    bool  = True       # 3-6 months expenses saved?
+    has_debt:          bool  = False
+    debt_amount:       float = 0.0        # Total high-interest debt
+    monthly_expenses:  float = 3000.0
+    has_dependents:    bool  = False
+    num_dependents:    int   = 0
+    employment_status: str   = "employed" # employed | self_employed | retired | student
+    income_stability:  str   = "stable"   # stable | variable | unstable
+    
+    # Existing investments
+    has_401k:          bool  = False
+    has_ira:           bool  = False
+    employer_match:    bool  = False       # Does employer match 401k?
+    existing_portfolio_value: float = 0.0
     
     # Preferences
     prefers_etfs:      bool  = False   # ETFs over individual stocks?
-    sector_focus:      list  = field(default_factory=list)    # Preferred sectors
-    exclude_sectors:   list  = field(default_factory=list)    # ESG exclusions etc
-    exclude_tickers:   list  = field(default_factory=list)    # Specific stocks to avoid
+    sector_focus:      list  = field(default_factory=list)
+    exclude_sectors:   list  = field(default_factory=list)
+    exclude_tickers:   list  = field(default_factory=list)
     
     # Experience
     experience_level:  str   = "intermediate"  # beginner | intermediate | advanced
     
     # Tax
     account_type:      str   = "taxable"  # taxable | ira | 401k | roth_ira
+    tax_bracket:       str   = "middle"   # low | middle | high
     
     # Derived (set automatically)
     composite_risk:    int   = 5
     profile_type:      str   = "balanced"
     asset_allocation:  dict  = field(default_factory=dict)
+    years_to_retirement: int = 35
+    savings_rate:      float = 0.0        # monthly_contrib / monthly_income
 
 
 class InvestorAdvisor:
@@ -264,21 +284,104 @@ class InvestorAdvisor:
         return profile
 
     def _calculate_profile(self, profile: InvestorProfile, risk_behavior: int) -> InvestorProfile:
-        """Calculate composite risk and profile type from survey answers."""
-        # Composite risk: blend tolerance, behavior, time horizon, situation
-        behavior_adj = {1: -2, 2: -1, 3: 0, 4: 1, 5: 2}.get(risk_behavior, 0)
-        horizon_adj  = min((profile.time_horizon_yrs - 5) / 5, 2)
-        debt_adj     = -1 if profile.has_debt else 0
-        ef_adj       = -1 if not profile.emergency_fund else 0
-        goal_adj     = {"speculation": 2, "growth": 1, "balanced": 0, "income": -1, "preservation": -2}.get(profile.primary_goal, 0)
+        """Calculate composite risk and profile type from all survey answers."""
 
+        # ── Derived fields ───────────────────────────────────────
+        profile.years_to_retirement = max(0, profile.retirement_age - profile.age)
+        if profile.annual_income > 0:
+            profile.savings_rate = (profile.monthly_contrib * 12) / profile.annual_income
+        
+        # Tax bracket estimate
+        inc = profile.annual_income
+        if inc < 45000:
+            profile.tax_bracket = "low"
+        elif inc < 100000:
+            profile.tax_bracket = "middle"
+        elif inc < 200000:
+            profile.tax_bracket = "upper_middle"
+        else:
+            profile.tax_bracket = "high"
+
+        # ── Auto-calculate time horizon from age if not set manually ──
+        if profile.time_horizon_yrs == 10 and profile.years_to_retirement > 0:
+            # Default to years-to-retirement unless user set it differently
+            profile.time_horizon_yrs = profile.years_to_retirement
+
+        # ── Composite risk score ─────────────────────────────────
+        # Start with stated risk tolerance
+        base_risk = profile.risk_tolerance
+
+        # Age adjustment: younger = can afford more risk
+        if profile.age < 25:
+            age_adj = 1.5
+        elif profile.age < 35:
+            age_adj = 1.0
+        elif profile.age < 45:
+            age_adj = 0.0
+        elif profile.age < 55:
+            age_adj = -0.5
+        elif profile.age < 65:
+            age_adj = -1.0
+        else:
+            age_adj = -2.0
+
+        # Behavior adjustment (how they react to crashes)
+        behavior_adj = {1: -2, 2: -1, 3: 0, 4: 1, 5: 2}.get(risk_behavior, 0) * 0.5
+
+        # Time horizon: more time = can take more risk
+        horizon_adj = min((profile.time_horizon_yrs - 5) / 5, 2) * 0.5
+
+        # Financial cushion: emergency fund, debt, dependents
+        debt_adj = -1.5 if profile.has_debt else 0
+        ef_adj = -1 if not profile.emergency_fund else 0
+        dependent_adj = -0.5 * min(profile.num_dependents, 4)
+
+        # Income stability
+        stability_adj = {"stable": 0, "variable": -0.5, "unstable": -1.5}.get(
+            profile.income_stability, 0)
+
+        # Net worth relative to investment (can they afford to lose this?)
+        if profile.net_worth > 0 and profile.starting_capital > 0:
+            invest_pct = profile.starting_capital / profile.net_worth
+            if invest_pct > 0.5:
+                cushion_adj = -1.0  # Investing most of their net worth — reduce risk
+            elif invest_pct > 0.3:
+                cushion_adj = -0.5
+            else:
+                cushion_adj = 0.5   # This is a small fraction — can afford more risk
+        else:
+            cushion_adj = 0
+
+        # Goal adjustment
+        goal_adj = {"speculation": 2, "growth": 1, "balanced": 0,
+                     "income": -1, "preservation": -2}.get(profile.primary_goal, 0) * 0.5
+
+        # Composite
         composite = round(
-            profile.risk_tolerance + behavior_adj * 0.5 + horizon_adj * 0.5 +
-            debt_adj + ef_adj + goal_adj * 0.5
+            base_risk + age_adj + behavior_adj + horizon_adj +
+            debt_adj + ef_adj + dependent_adj + stability_adj +
+            cushion_adj + goal_adj
         )
         profile.composite_risk = max(1, min(10, composite))
 
-        # Map to profile type
+        # Risk capacity (separate from willingness — ability to absorb losses)
+        capacity_score = 5
+        if profile.age < 35 and profile.emergency_fund and not profile.has_debt:
+            capacity_score = 8
+        elif profile.age > 55 or profile.has_dependents:
+            capacity_score = 4
+        if profile.net_worth > 500000:
+            capacity_score = min(capacity_score + 2, 10)
+        if profile.income_stability == "unstable":
+            capacity_score = max(capacity_score - 2, 1)
+        profile.risk_capacity = capacity_score
+
+        # If risk capacity is much lower than tolerance, cap it
+        # (they WANT risk but CAN'T afford it)
+        if profile.risk_capacity < profile.composite_risk - 2:
+            profile.composite_risk = profile.risk_capacity + 1
+
+        # ── Map to profile type ──────────────────────────────────
         cr = profile.composite_risk
         if cr <= 2:
             ptype = "ultra_conservative"
@@ -294,18 +397,20 @@ class InvestorAdvisor:
             ptype = "aggressive"
         elif cr <= 8:
             ptype = "aggressive"
-        elif cr == 9:
-            ptype = "ultra_aggressive"
         else:
             ptype = "ultra_aggressive"
 
-        # Override for specific goals
-        if profile.primary_goal == "income":
+        # Override for specific goals / life situations
+        if profile.primary_goal == "income" and cr <= 6:
             ptype = "income"
         if profile.primary_goal == "preservation" and cr <= 4:
             ptype = "conservative"
+        if profile.age >= 60 and cr <= 5:
+            ptype = "conservative"  # Near retirement, be careful
+        if profile.age < 25 and profile.primary_goal == "growth" and cr >= 5:
+            ptype = "aggressive"  # Young with long horizon
 
-        profile.profile_type  = ptype
+        profile.profile_type = ptype
         profile.asset_allocation = self.PROFILE_TYPES[ptype]
 
         return profile

@@ -113,7 +113,7 @@ class ResearchReportGenerator:
         doc.build(story, onFirstPage=self._header_footer,
                   onLaterPages=self._header_footer)
 
-        print(f"  ✅ Report saved: {output_path}")
+        print(f"  Report saved: {output_path}")
         return output_path
 
     # ── STYLES ───────────────────────────────────────────────────

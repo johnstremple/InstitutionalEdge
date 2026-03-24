@@ -49,6 +49,10 @@ from alt_data              import AltDataAnalyzer
 from advanced_tools        import OptionsFlowScanner, PortfolioRiskAnalyzer, NaturalLanguageScreener
 from pdf_report            import ResearchReportGenerator
 
+# ── v6 (ML + Conviction) ────────────────────────────────────────
+from growth_quality_scorer import GrowthQualityScorer
+from alpha_model           import AlphaModel, RegimeDetector
+
 
 # ─── FULL STOCK ANALYSIS ──────────────────────────────────────────────────────
 
@@ -127,11 +131,20 @@ def analyze_stock(ticker: str, verbose: bool = True,
                                      ticker, info.get("longName", ticker))
 
     # 11. Price Target
-    print("[11/11] Price target...")
+    print("[11/12] Price target...")
     results["price_target"] = PriceTargetEngine(
         ticker, current_price, info,
         results["simulations"], results["technical"], results["competitive"]
     ).generate()
+
+    # 12. NEW: Buffett-Meets-Growth Conviction Score
+    print("[12/12] Growth quality conviction score...")
+    try:
+        results["conviction"] = GrowthQualityScorer(
+            ticker, info, financials, stock_data
+        ).full_analysis()
+    except Exception as e:
+        results["conviction"] = {"score": 50, "conviction_label": "N/A", "error": str(e)}
 
     # Composite score + signal
     results["composite_score"] = _composite_score(results)
@@ -326,6 +339,22 @@ def _print_analysis(r: dict):
     for c in pt.get("catalysts",[])[:3]: print(f"  🚀 {c}")
     for rk in pt.get("risks",[])[:3]:   print(f"  ⚠️  {rk}")
 
+    # Conviction Score (Buffett-Meets-Growth)
+    conv = r.get("conviction", {})
+    if conv.get("score"):
+        print(f"\n  {'─'*50}")
+        print(f"  CONVICTION SCORE: {conv['score']:.0f}/100 — {conv.get('conviction_label','')}")
+        pillars = conv.get("pillars", {})
+        for name, data in pillars.items():
+            print(f"    {data.get('emoji','')} {data.get('label',''):30s} {data.get('score',0):5.0f}/100")
+        thesis = conv.get("thesis", {})
+        if thesis.get("verdict"):
+            print(f"\n  THESIS: {thesis['verdict'][:200]}")
+        for bp in thesis.get("bull_case", [])[:2]:
+            print(f"    + {bp}")
+        for bp in thesis.get("bear_case", [])[:2]:
+            print(f"    - {bp}")
+
     # Final signal
     signal  = r.get("buy_signal","HOLD")
     display = {"STRONG BUY":"🟢🟢 STRONG BUY","BUY":"🟢  BUY","HOLD":"🟡  HOLD",
@@ -504,7 +533,7 @@ def analyze_portfolio(tickers):
 def print_help():
     print("""
   ╔══════════════════════════════════════════════════════════════╗
-  ║        INSTITUTIONALEDGE v5.0 — COMMAND GUIDE               ║
+  ║        INSTITUTIONALEDGE v6.0 — COMMAND GUIDE               ║
   ╠══════════════════════════════════════════════════════════════╣
   ║  STOCK ANALYSIS                                              ║
   ║  python main.py analyze NVDA                                 ║
@@ -513,6 +542,13 @@ def print_help():
   ║  python main.py portfolio AAPL MSFT NVDA AMZN                ║
   ║  python main.py macro                                        ║
   ║  python main.py crypto bitcoin                               ║
+  ║                                                              ║
+  ║  ML ALPHA MODEL (v6)                                         ║
+  ║  python main.py alpha full --save          (full pipeline)   ║
+  ║  python main.py alpha train --save         (build + train)   ║
+  ║  python main.py alpha validate             (walk-forward)    ║
+  ║  python main.py alpha predict --top 25     (generate picks)  ║
+  ║  python main.py alpha predict --load alpha_v1                ║
   ║                                                              ║
   ║  AI ADVISOR (survey → auto portfolio)                        ║
   ║  python main.py advisor                                      ║
@@ -548,7 +584,7 @@ def print_help():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="InstitutionalEdge v5.0", add_help=False)
+    parser = argparse.ArgumentParser(description="InstitutionalEdge v6.0", add_help=False)
     subs   = parser.add_subparsers(dest="command")
 
     a = subs.add_parser("analyze")
@@ -575,6 +611,16 @@ if __name__ == "__main__":
     subs.add_parser("etfs")
 
     subs.add_parser("advisor")
+
+    # ML Alpha Model
+    al = subs.add_parser("alpha")
+    al.add_argument("action", choices=["full", "train", "validate", "predict", "report"])
+    al.add_argument("--tickers", nargs="*", default=None)
+    al.add_argument("--top", type=int, default=25)
+    al.add_argument("--target", default="label_6m_10pct",
+                    choices=["label_6m_5pct", "label_6m_10pct", "label_12m_10pct"])
+    al.add_argument("--save", action="store_true")
+    al.add_argument("--load", type=str, default=None)
 
     bt = subs.add_parser("backtest")
     bt.add_argument("--mode", default="compare",
@@ -633,6 +679,49 @@ if __name__ == "__main__":
         r = run_backtest(args.mode, args.tickers, args.start)
         with open("backtest_results.json","w") as f:
             json.dump(r, f, indent=2, default=str)
+
+    elif args.command == "alpha":
+        model = AlphaModel(target=args.target)
+        if args.load:
+            model.load(args.load)
+        if args.action == "full":
+            df = model.build_universe(tickers=args.tickers)
+            if df is None or df.empty:
+                print("  FATAL: No data collected. Check internet or install lxml: pip install lxml")
+            else:
+                metrics = model.train()
+                if metrics:
+                    model.validate()
+                    model.generate_signals(top_n=args.top)
+                    print("\n" + model.report())
+                    if args.save: model.save()
+                else:
+                    print("  FATAL: Training failed.")
+        elif args.action == "train":
+            df = model.build_universe(tickers=args.tickers)
+            if df is not None and not df.empty:
+                model.train()
+                if args.save: model.save()
+        elif args.action == "validate":
+            df = model.build_universe(tickers=args.tickers)
+            if df is not None and not df.empty:
+                model.train()
+                model.validate()
+        elif args.action == "predict":
+            if not args.load:
+                df = model.build_universe(tickers=args.tickers)
+                if df is None or df.empty:
+                    print("  FATAL: No data."); 
+                else:
+                    model.train()
+                    model.generate_signals(tickers=args.tickers, top_n=args.top)
+            else:
+                model.generate_signals(tickers=args.tickers, top_n=args.top)
+        elif args.action == "report":
+            if args.load:
+                print(model.report())
+            else:
+                print("  Use --load <name> to load a saved model")
 
     elif args.command == "ask":
         query = " ".join(args.query)
